@@ -46,114 +46,59 @@ def pdfextract(file):
         text.append(t)
     return text
 
-
-def create_Data_Scientist_profile(file):
+def create_profile(file, target_job_title):
+    # converting the resume pdf into text
     text = pdfextract(file) 
     text = str(text)
     text = text.replace("\\n", "")
     text = text.lower()
-    #below is the csv where we have all the keywords, you can customize your own
-    keyword_dict = pd.read_csv('data_science_keywords.csv')
+    
+    #below is the csv where we have all the keywords
+    if target_job_title == 'DS':
+        keyword_dict = pd.read_csv('data_science_keywords.csv')
+    elif target_job_title == 'WD':
+        keyword_dict = pd.read_csv('web_developer_keywords.csv')
+    elif target_job_title == 'ISA':
+        keyword_dict = pd.read_csv('information_security_analyst.csv')
+    elif target_job_title == 'SE':
+        keyword_dict = pd.read_csv('software_engineer_keywords.csv')
+    elif target_job_title == 'AI':
+        keyword_dict = pd.read_csv('ai_ml_keywords.csv')
+        
     
     keyword_total = list(keyword_dict.count())
-    global total_sum
     total_sum = 0
     for i in keyword_total:
         total_sum = total_sum + i
         
-    print('ee',total_sum)
-    
-    
-    
-    stats_words = [nlp(text) for text in keyword_dict['Statistics'].dropna(axis = 0)]
-    NLP_words = [nlp(text) for text in keyword_dict['NLP'].dropna(axis = 0)]
-    ML_words = [nlp(text) for text in keyword_dict['Machine Learning'].dropna(axis = 0)]
-    DL_words = [nlp(text) for text in keyword_dict['Deep Learning'].dropna(axis = 0)]
-    R_words = [nlp(text) for text in keyword_dict['R Language'].dropna(axis = 0)]
-    python_words = [nlp(text) for text in keyword_dict['Python Language'].dropna(axis = 0)]
-    Data_Engineering_words = [nlp(text) for text in keyword_dict['Data Engineering'].dropna(axis = 0)]
+    keyword_dict_col_names = list(keyword_dict.columns)
 
-    matcher = PhraseMatcher(nlp.vocab)
-    matcher.add('Stats', None, *stats_words)
-    matcher.add('NLP', None, *NLP_words)
-    matcher.add('ML', None, *ML_words)
-    matcher.add('DL', None, *DL_words)
-    matcher.add('R', None, *R_words)
-    matcher.add('Python', None, *python_words)
-    matcher.add('DE', None, *Data_Engineering_words)
-    doc = nlp(text)
-    
-    d = []  
-    matches = matcher(doc)
-    for match_id, start, end in matches:
-        rule_id = nlp.vocab.strings[match_id]  # get the unicode ID, i.e. 'COLOR'
-        span = doc[start : end]  # get the matched slice of the doc
-        d.append((rule_id, span.text))      
-    keywords = "\n".join(f'{i[0]} {i[1]} ({j})' for i,j in Counter(d).items())
-    
-    ## convertimg string of keywords to dataframe
-    df = pd.read_csv(StringIO(keywords),names = ['Keywords_List'])
-    df1 = pd.DataFrame(df.Keywords_List.str.split(' ',1).tolist(),columns = ['Subject','Keyword'])
-    df2 = pd.DataFrame(df1.Keyword.str.split('(',1).tolist(),columns = ['Keyword', 'Count'])
-    df3 = pd.concat([df1['Subject'],df2['Keyword'], df2['Count']], axis =1) 
-    df3['Count'] = df3['Count'].apply(lambda x: x.rstrip(")"))
-    
-    base = os.path.basename(file)
-    filename = os.path.splitext(base)[0]
-       
-    name = filename.split('_')
-    name2 = name[0]
-    name2 = name2.lower()
-    ## converting str to dataframe
-    name3 = pd.read_csv(StringIO(name2),names = ['Candidate Name'])
-    
-    dataf = pd.concat([name3['Candidate Name'], df3['Subject'], df3['Keyword'], df3['Count']], axis = 1)
-    dataf['Candidate Name'].fillna(dataf['Candidate Name'].iloc[0], inplace = True)
-    #print(dataf)
-    return(dataf)
-#=========================================
-def create_web_dev_profile(file):
-    text = pdfextract(file) 
-    text = str(text)
-    text = text.replace("\\n", "")
-    text = text.lower()
-    #below is the csv where we have all the keywords, you can customize your own
-    keyword_dict = pd.read_csv('web_developer_keywords.csv')
-    keyword_total = list(keyword_dict.count())
-    global total_sum
-    total_sum = 0
-    for i in keyword_total:
-        total_sum = total_sum + i
-        
-    print('ee',total_sum)
-    
-    front_end = [nlp(text) for text in keyword_dict['Front End'].dropna(axis = 0)]
-    back_end = [nlp(text) for text in keyword_dict['Back End'].dropna(axis = 0)]
-    database = [nlp(text) for text in keyword_dict['Database'].dropna(axis = 0)]
-    project = [nlp(text) for text in keyword_dict['Projects'].dropna(axis = 0)]
-    frameworks = [nlp(text) for text in keyword_dict['Frameworks'].dropna(axis = 0)]
-    
-    #print(front_end)
-   # print(back_end)
-    #print(database)
+    # ======================================================
+    final = []
+    for c in keyword_dict_col_names:
+        final = keyword_dict[c].tolist() + final
+
+    final2 = []
+    for i in final:
+        if type(i) == str:
+            final2.append(i)
+
+    print(final2)
+
    
     matcher = PhraseMatcher(nlp.vocab)
-    matcher.add('FrontEnd', None, *front_end)
-    matcher.add('BackEnd', None, *back_end)
-    matcher.add('Database', None, *database)
-    matcher.add('Projects', None, *project)
-    matcher.add('Frameworks', None, *frameworks)
- 
+    
+    for col in keyword_dict_col_names: 
+        matcher.add(col, None, *[nlp(text) for text in keyword_dict[col].dropna(axis = 0)])
+    
     doc = nlp(text)
-    #print(doc)
     
     d = []  
     matches = matcher(doc)
-   # print(matches)
     for match_id, start, end in matches:
         rule_id = nlp.vocab.strings[match_id]  # get the unicode ID, i.e. 'COLOR'
         span = doc[start : end]  # get the matched slice of the doc
-        d.append((rule_id, span.text))      
+        d.append((rule_id, span.text))  
     keywords = "\n".join(f'{i[0]} {i[1]} ({j})' for i,j in Counter(d).items())
     
     ## convertimg string of keywords to dataframe
@@ -175,7 +120,9 @@ def create_web_dev_profile(file):
     dataf = pd.concat([name3['Candidate Name'], df3['Subject'], df3['Keyword'], df3['Count']], axis = 1)
     dataf['Candidate Name'].fillna(dataf['Candidate Name'].iloc[0], inplace = True)
    # print(dataf)
-    return(dataf)
+    return(dataf,total_sum,final2 )
+    
+
 
 
 
@@ -198,12 +145,12 @@ def upload():
 def res_score():
     return render_template("resume_score.html")
 
-@app.route("/upload/result",methods=['POST'])
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/resume_score/result",methods=['POST'])
 def result():
-    #dropdown_selection = request.form["select1"]
-    #return dropdown_selection
-    
-    
     print('eer  0', request.form)
     dropdown_selection = str(request.form)
     dropdown_selection = dropdown_selection.split()
@@ -212,26 +159,10 @@ def result():
     if 'XMEN' in dropdown_selection:
         return ('Your are not an X men. You can never be.')
     
-        #print(final_database)
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/test")
-def testPage():
-    return render_template("test.html")
-    
-   
-        
-    #code to count words under each category and visulaize it through Matplotlib
-    
-   
-        
-        
+ 
         
     
-    target = os.path.join(APP_ROOT, 'images/')
+    target = 'images/'
     print('tt' , target)
 
     if not os.path.isdir(target):
@@ -246,47 +177,72 @@ def testPage():
         
         
         
+        
     mypath = os. getcwd()
     onlyfiles = [os.path.join(mypath, f) for f in os.listdir(mypath) if os.path.isfile(os.path.join(mypath, f))]
+    
+    
+    
+    
     
     final_database=pd.DataFrame()
     i = 0 
     while i < 1:
         file = destination
         if 'WD' in dropdown_selection:
-            print('-------------YES----------------')
-            dat = create_web_dev_profile(file)
+            dat, total_sum,rr = create_profile(file,'WD')
             selection = 'Web Developer'
         if 'DS' in dropdown_selection:
-            print("--------------DS la ----------------")
-            dat = create_Data_Scientist_profile(file)
+            dat, total_sum,rr = create_profile(file,'DS')
             selection = 'Data Scientist'
+            
+        if 'ISA' in dropdown_selection:
+            dat, total_sum,rr = create_profile(file,'ISA')
+            selection = 'Information Security Analyst'
+            
+        if 'SE' in dropdown_selection:
+            dat, total_sum,rr = create_profile(file,'SE')
+            selection = 'Software Engineer'
+            
+        if 'AI' in dropdown_selection:
+            dat, total_sum,rr = create_profile(file,'AI')
+            selection = 'AI and ML Engineer'
         final_database = final_database.append(dat)
         i +=1
         
         
 
+    #=========================================
+    
     final_database2 = final_database['Keyword'].groupby([final_database['Candidate Name'], final_database['Subject']]).count().unstack()
     final_database2.reset_index(inplace = True)
     final_database2.fillna(0,inplace=True)
-    print(final_database2)
-    #=====================
-    ff = list(final_database2.columns)
-    ff.pop(0)
+    print(dat)
+    print(dat['Keyword'])
+
+    cand_key = dat['Keyword'].tolist()
+    cand_key_new = []
+    for i in cand_key:
+        cand_key_new.append(i.strip())
+
+    print('cc ', cand_key_new)
+    
+    final_database_col = list(final_database2.columns)
+    final_database_col.pop(0)
     sum = 0
-    for i in ff:
+    for i in final_database_col:
         sum = sum + final_database2[i]
-        #print(final_database2[i])
-    
+        
     sum = int(sum)
-    f = (sum/total_sum) * 100 
-    print(f) 
-    f = math.floor(f)
-    
-    
-    
+    resume_score = (sum/total_sum) * 100 
+    resume_score = math.floor(resume_score)
+    print(total_sum)
+    gg= (set(rr) - set(cand_key_new))
+    print(set(rr) - set(cand_key_new))
+        
+        
    
-    return ('Your resume is  '+str(f)+'% like a '+str(selection))
+    return render_template('result.html',result = gg, selection =selection )
 
 if __name__ == "__main__":
     app.run()

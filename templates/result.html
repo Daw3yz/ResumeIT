@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Home - Website name</title>
+        <meta name="description" content="Website contend">
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+        <link rel="stylesheet" href="static/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="static/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="static/css/Drag--Drop-Upload-Form.css">
+        <link rel="stylesheet" href="static/css/Drag-Drop-File-Input-Upload.css">
+        <link rel="stylesheet" href="static/css/Features-Boxed.css">
+        <link rel="stylesheet" href="static/css/Footer-Dark.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="static/css/Team-with-rotating-cards.css">
+        <link rel="stylesheet" href="static/css/custom.css">
+    </head>
+<body id="page-top"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper"><span></span>
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">Result</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-primary py-2" >
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Your resume matches for {{ selection }}</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><span>{{result}}%</span></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-check fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col"><button class="btn btn-primary" type="button"  onclick="window.location.href='{{ url_for('index') }}'" />Go back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="/static/assets/js/theme.js"></script>
+</body>
+
+</html>

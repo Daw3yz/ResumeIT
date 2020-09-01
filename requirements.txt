@@ -1,0 +1,6 @@
+gunicorn==19.8.1
+flask==1.1.1
+pytest==4.6.11
+pandas==0.24.2
+spacy==2.3.2
+PyPDF2==1.26.0
