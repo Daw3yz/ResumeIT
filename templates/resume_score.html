@@ -23,25 +23,7 @@
 
 <body style="background-color: rgb(255,255,255);">
 
-    <!--NAVBAR-->
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
-        <div class="container"><img class="border rounded" data-bs-hover-animate="pulse" src="static/img/Codepink.jpg" style="filter: contrast(89%) hue-rotate(359deg);width: 50px;height: 50px;"><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="about.html">About us</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" data-bs-hover-animate="pulse" href="#">Services</a>
-                        <div class="dropdown-menu" role="menu" style="background-color: rgb(255,255,255);opacity: 0.49;filter: contrast(134%) grayscale(47%) hue-rotate(0deg) saturate(101%);"><a class="dropdown-item" role="presentation" href="resume_score.html">Resume Score</a><a class="dropdown-item" role="presentation" href="#">Career Path Finder</a><a class="dropdown-item" role="presentation" href="#">Job Search</a>
-                            <a
-                                class="dropdown-item" role="presentation" href="#">100 Questions 100 Days</a><a class="dropdown-item" role="presentation" href="#" style="filter: brightness(70%);">Quiz</a></div>
-                    </li>
-                    <li class="nav-item" role="presentation"></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!--NAVBAR-->
+    {% include "navbar.html" %}
 
 
     <!--FORM-->
@@ -55,29 +37,18 @@
             <input type="file" name="file" accept="application/pdf/*" multiple /></div>
         <div class="form-group">
             <strong class="form-label">Select Job Title</strong>
-            <div class="career-selector">
-                <select name="select1" class="form-control" id="exampleFormControlSelect2">
-                    <option value="DS">Data Scientist</option>
-                    <option value="WD">Web Developer</option>
-                    <option value="XMEN">X men</option>
-                </select>
-            </div>
+            <select name="select1" class="form-control">
+                <option value="DS">Data Scientist</option>
+                <option value="WD">Web Developer</option>
+                <option value="ISA">Information Security Analyst</option>
+                <option value="SE">Software Engineer</option>
+                <option value="AI">AI and ML Engineer</option>
+                <option value="XMEN">X men</option>
+            </select>
         </div>
         
         <div class="form-group"><input type="submit" value="Upload" class="btn btn-primary btn-block"></div>
     </form></div>
-        <script src="../static/js/jquery.min.js"></script>
-        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    
-    <!--FORM-->
-
-    <select name="select1" class="form-control" id="exampleFormControlSelect2">
-        <option value="DS">Data Scientist</option>
-        <option value="WD">Web Developer</option>
-        <option value="XMEN">X men</option>
-    </select>
-
-
 
     <div class="footer-dark">
         <footer>

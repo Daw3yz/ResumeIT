@@ -1,4 +1,5 @@
 import os
+import jinja2
 from flask import Flask, render_template, request, url_for
 
 global total_sum
@@ -212,6 +213,14 @@ def result():
         return ('Your are not an X men. You can never be.')
     
         #print(final_database)
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/test")
+def testPage():
+    return render_template("test.html")
     
    
         
