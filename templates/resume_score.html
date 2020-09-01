@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Website name</title>
+    <meta name="description" content="Website contend">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/Drag--Drop-Upload-Form.css">
+    <link rel="stylesheet" href="static/css/Drag-Drop-File-Input-Upload.css">
+    <link rel="stylesheet" href="static/css/Features-Boxed.css">
+    <link rel="stylesheet" href="static/css/Footer-Dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="static/css/Team-with-rotating-cards.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/custom.css">
+</head>
+
+<body style="background-color: rgb(255,255,255);">
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><img class="border rounded" data-bs-hover-animate="pulse" src="static/img/Codepink.jpg" style="filter: contrast(89%) hue-rotate(359deg);width: 50px;height: 50px;"><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="about.html">About us</a></li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" data-bs-hover-animate="pulse" href="#">Services</a>
+                        <div class="dropdown-menu" role="menu" style="background-color: rgb(255,255,255);opacity: 0.49;filter: contrast(134%) grayscale(47%) hue-rotate(0deg) saturate(101%);"><a class="dropdown-item" role="presentation" href="resume_score.html">Resume Score</a><a class="dropdown-item" role="presentation" href="#">Career Path Finder</a><a class="dropdown-item" role="presentation" href="#">Job Search</a>
+                            <a
+                                class="dropdown-item" role="presentation" href="#">100 Questions 100 Days</a><a class="dropdown-item" role="presentation" href="#" style="filter: brightness(70%);">Quiz</a></div>
+                    </li>
+                    <li class="nav-item" role="presentation"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--NAVBAR-->
+
+
+    <!--FORM-->
+    
+    <div class="form-dark">
+        <form id="upload-form" action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
+        <h2 class="sr-only">Resume Form</h2>
+        <div class="illustration"><i class="icon ion-ios-paper-outline"></i></div>
+        <div class="form-group">
+            <strong class='form-label'>Upload Resume</strong>
+            <input type="file" name="file" accept="application/pdf/*" multiple /></div>
+        <div class="form-group">
+            <strong class="form-label">Select Job Title</strong>
+            <div class="career-selector">
+                <select name="select1" class="form-control" id="exampleFormControlSelect2">
+                    <option value="DS">Data Scientist</option>
+                    <option value="WD">Web Developer</option>
+                    <option value="XMEN">X men</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group"><input type="submit" value="Upload" class="btn btn-primary btn-block"></div>
+    </form></div>
+        <script src="../static/js/jquery.min.js"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!--FORM-->
+
+    <select name="select1" class="form-control" id="exampleFormControlSelect2">
+        <option value="DS">Data Scientist</option>
+        <option value="WD">Web Developer</option>
+        <option value="XMEN">X men</option>
+    </select>
+
+
+
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Resume Score</a></li>
+                            <li><a href="#">Career Path Finder</a></li>
+                            <li>Job Search</li>
+                        </ul>
+                        <ul>
+                            <li></li>
+                            <li>I00 Question / 100 Days</li>
+                            <li>Quiz</li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>CODEPINK</h3>
+                        <p><br>We are a group of people that wants to help others who has skills and talents and wanted to enhanced them to be used for future purposes.<br><br></p>
+                    </div>
+                    <div class="col item social"><a href="/contact.html"><i class="icon ion-ios-telephone"></i></a><a href="#"><i class="icon ion-ios-email"></i></a></div>
+                </div>
+                <p class="copyright"><br>CODEPINK © 2020<br><br></p>
+            </div>
+        </footer>
+    </div>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/js/bs-init.js"></script>
+    <script src="static/js/clean-blog.js"></script>
+</body>
+
+</html>
